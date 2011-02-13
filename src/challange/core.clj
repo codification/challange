@@ -1,31 +1,28 @@
 (ns challange.core
-  (:require [clojure.contrib.str-utils2 :as s]))
+  (:require [clojure.string :as s]))
 
-(def challange "VOCDIITEIOCRUDOIANTOCSLOIOCVESTAIOCVOLIOCENTSU")
+(def the-challange "VOCDIITEIOCRUDOIANTOCSLOIOCVESTAIOCVOLIOCENTSU")
 
-(def words (map str '(TDD, DDD, DI, DO, OO, UI, ANT, CV, IOC, LOC, SU, VO)))
+(def the-words (map str '(TDD, DDD, DI, DO, OO, UI, ANT, CV, IOC, LOC, SU, VO)))
 
-(defn remove-from [s pattern]
-  (s/replace s pattern ""))
+(defn matches-at [s pat]
+  (loop [matches []
+         index (.indexOf s pat)]
+    (if (< -1 index)
+      (recur (conj matches index)
+             (.indexOf s pat (inc index)))
+      matches)))
 
-(defn contained-in [patterns string]
-  (filter #(s/contains? string %) patterns))
+(defn reduce-once [response word]
+  (let [answer (s/replace (:answer response) word "")]
+    (assoc response
+            :answer answer
+            :by-way-of (if (not (= (:answer response) answer))
+                         (conj (:by-way-of response) word)
+                         (:by-way-of response)))))
 
-(defn remove-all [s patterns]
-  (let [candidates  (contained-in patterns s)]
-    (map #(vector (vector %) (remove-from s %)) candidates)))
-
-(defn apply-candidate-path [path s candidate]
-  (vector (conj path candidate) (remove-from s candidate)))
-
-(defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
-
-
-(defn reduce-further [so-far patterns]
-  (loop [[[path s] & rest :as reductions] so-far]
-    (let [candidates (contained-in patterns s)
-          applied (map (partial apply-candidate-path path s) candidates)]
-      (if (and (seq candidates) (> 200 (count reductions)))
-        (recur (concat rest applied))
-        reductions))))
-
+(defn solve [challange words]
+  (reduce reduce-once
+          {:answer challange
+           :by-way-of []}
+          words))

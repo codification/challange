@@ -2,23 +2,11 @@
   (:use [challange.core] :reload)
   (:use [midje.sweet]))
 
+;.;. Work is either fun or drudgery. It depends on your attitude. I like
+;.;. fun. -- Barrett
 (fact
- (contained-in ["A" "BB"] "ABBA") => ["A" "BB"]
- (contained-in ["BB" "CC"] "AAA") => [])
-
-(fact "removes patterns from a string"
-      (remove-from "ABA" "A") => "B"
-      (remove-from "ABA" "B") => "AA")
-
-(fact
- (remove-all "ABBA" ["A" "B"]) => [[["A"] "BB"] [["B"] "AA"]]
- (remove-all "ABBA" ["A" "C"]) => [[["A"] "BB"]])
-
-;.;. Effort only fully releases its reward after a person refuses to
-;.;. quit. -- Hill
-(fact
- ( reduce-further [[["A"] "CBBC"]] ["C"]) => [[["A" "C"] "BB"]])
+ (solve "AA" ["A"]) => {:answer "" :by-way-of ["A"]}
+ (solve "ABA" ["A" "B"]) => {:answer "" :by-way-of ["A" "B"]}
+ (solve "AB" ["A" "X"]) => {:answer "B" :by-way-of ["A"]})
 
 
-(fact
- (apply-candidate-path ["A"] "BBCC" "C") => [["A" "C"] "BB"])
