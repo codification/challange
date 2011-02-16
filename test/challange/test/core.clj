@@ -2,7 +2,6 @@
   (:use [challange.core] :reload)
   (:use [midje.sweet]))
 
-;.;. Without work, all life goes rotten. -- Camus
 (fact 
  (solve "AA" ["A"]) => ["" "AA"]
  (solve "ABA" ["A" "B"]) => ["" "B" "AA" "ABA"] 
