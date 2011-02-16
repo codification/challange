@@ -2,12 +2,11 @@
   (:use [challange.core] :reload)
   (:use [midje.sweet]))
 
-;.;. FAIL at (NO_SOURCE_FILE:1)
-;.;.     Expected: #{"" "AA" "ABA" "B"}
-;.;.       Actual: #{"AA" "ABA" "B"}
+;.;. Without work, all life goes rotten. -- Camus
 (fact 
- (solve "AA" ["A"]) => #{"" "AA"}
- (solve "ABA" ["A" "B"]) => #{"" "AA" "B" "ABA"}
- (solve "AB" ["A" "X"]) => #{"B" "AB"})
+ (solve "AA" ["A"]) => ["" "AA"]
+ (solve "ABA" ["A" "B"]) => ["" "B" "AA" "ABA"] 
+ (solve "AB" ["A" "X"]) => ["B" "AB"])
 
-
+(fact
+ (solve the-challange the-words) => (has-prefix "CITERUSLOVESTALENT"))
