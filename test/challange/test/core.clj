@@ -3,9 +3,11 @@
   (:use [midje.sweet]))
 
 (fact 
- (solve "AA" ["A"]) => ["" "AA"]
- (solve "ABA" ["A" "B"]) => ["" "B" "AA" "ABA"] 
- (solve "AB" ["A" "X"]) => ["B" "AB"])
+ (solve "AA" ["A"]) => ""
+ (solve "ABA" ["A" "B"]) => "" 
+ (solve "AB" ["A" "X"]) => "B")
 
+;.;. Not in rewards, but in the strength to strive, the blessing lies. --
+;.;. Towbridge
 (fact
- (solve the-challange the-words) => (has-prefix "CITERUSLOVESTALENT"))
+ (solve the-challange the-words) => "CITERUSLOVESTALENT")
