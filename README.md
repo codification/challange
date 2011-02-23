@@ -2,6 +2,8 @@
 
 A late (after the winner had been announced) response to Citerus Programming challange for JFokus 2011
 
+Disclaimer: This solution is by no means perfect or even basically correct if you throw harder challanges at it.
+
 ## Usage
 
 For now, only usable at the REPL.
