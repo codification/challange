@@ -14,11 +14,15 @@
 
 (def m-reduce-by (memoize reduce-by))
 
+(declare m-reduce-replace)
+
 (defn reduce-replace [challange words]
   (let [replacements (m-reduce-by challange words)]
     (conj (set/union (set replacements)
-                     (apply set/union (map #(reduce-replace % words) replacements)))
+                     (apply set/union (map #(m-reduce-replace % words) replacements)))
           challange)))
+
+(def m-reduce-replace (memoize reduce-replace))
 
 (defn solve [challange words]
   (let [comp (fn [& params] (apply < (map count params)))]
