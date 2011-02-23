@@ -12,8 +12,10 @@
         candidates (map #(reduce str (.split s %)) words)]
     (filter (fn [^String c] (< (.length c) len)) candidates)))
 
+(def m-reduce-by (memoize reduce-by))
+
 (defn reduce-replace [challange words]
-  (let [replacements (reduce-by challange words)]
+  (let [replacements (m-reduce-by challange words)]
     (conj (set/union (set replacements)
                      (apply set/union (map #(reduce-replace % words) replacements)))
           challange)))
